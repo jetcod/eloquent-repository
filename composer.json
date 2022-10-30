@@ -1,0 +1,23 @@
+{
+    "name": "jetcod/laravel-repository",
+    "description": "This package is an implementation of repository pattern in laravel.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "illuminate/database": "^9.37",
+        "illuminate/container": "^9.37",
+        "nesbot/carbon": "^2.62"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jetcod\\LaravelRepository\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Hamid Ghorashi",
+            "email": "h.ghorashi@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
