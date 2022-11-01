@@ -1,5 +1,5 @@
 {
-    "name": "jetcod/laravel-repository",
+    "name": "jetcod/eloquent-repository",
     "description": "This package is an implementation of repository pattern in laravel.",
     "type": "library",
     "license": "MIT",
