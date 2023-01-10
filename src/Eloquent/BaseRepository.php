@@ -11,6 +11,11 @@ use Jetcod\LaravelRepository\Exceptions\RepositoryException;
 
 abstract class BaseRepository implements EloquentRepositoryInterface
 {
+    /**
+     * Fillable attributes of a model.
+     *
+     * @var array
+     */
     protected $fillable = [];
 
     /**
@@ -19,10 +24,17 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     protected $model;
 
     /**
-     * @var \Illuminate\Database\Eloquent\Builder
+     * Eloquent query builder.
+     *
+     * @var Builder
      */
     protected $query;
 
+    /**
+     * Illuminate container.
+     *
+     * @var Container
+     */
     private $container;
 
     /**
@@ -55,23 +67,36 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         return $this->model->create($attributes);
     }
 
+    /**
+     * Create or update a record matching the attributes, and fill it with values.
+     *
+     * @return Model|static
+     */
     public function updateOrCreate(array $data, array $conditions)
     {
         return $this->model->updateOrCreate($data, $conditions);
     }
 
+    /**
+     * Bulk insert.
+     */
     public function insert(array $rows): bool
     {
         return $this->query()->insert($rows);
     }
 
+    /**
+     * Count records by condition.
+     */
     public function countBy(array $conditions): int
     {
         return $this->query()->where($conditions)->count();
     }
 
     /**
-     * @param $id
+     * Find a model by its primary key.
+     *
+     * @param $id Id of the searched entity
      */
     public function find($id): ?Model
     {
@@ -88,8 +113,8 @@ abstract class BaseRepository implements EloquentRepositoryInterface
 
     /**
      * Find a model with its relations.
-     * 
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
+     *
+     * @return null|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|static|static[]
      */
     public function findWithRelations(int $id, array $relations): ?Model
     {
@@ -216,6 +241,12 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         return $model;
     }
 
+    /**
+     * Set the relationships that should be eager loaded.
+     *
+     * @param array|string         $relations
+     * @param null|\Closure|string $callback
+     */
     public function with($relations, $callback = null): Builder
     {
         if (!empty($relations)) {
@@ -226,9 +257,9 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * Returns a model namespace
+     * Returns a model namespace.
      *
-     * @return string Model namespace
+     * @return string The model namespace
      */
     abstract protected function getModelName();
 
