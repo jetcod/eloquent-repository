@@ -138,12 +138,19 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * Delete a model.
+     * Delete a database entity.
+     *
+     * @param int|Model $model An entity object or its id
+     *
+     * @throws RepositoryException Exception if no associated model found
      */
-    public function delete(Model $model): bool
+    public function delete($model): bool
     {
         if (is_numeric($model)) {
             $model = $this->find($model)->first();
+            if (!$model instanceof Model) {
+                throw new RepositoryException('Model not found!');
+            }
         }
 
         return $model->delete();
