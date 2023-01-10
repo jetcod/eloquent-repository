@@ -3,11 +3,19 @@
     "description": "This package is an implementation of repository pattern in laravel.",
     "type": "library",
     "license": "MIT",
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
     "require": {
         "php": "^7.3|^8.0",
-        "illuminate/database": "^8.83",
         "illuminate/container": "^8.83",
+        "illuminate/database": "^8.83",
         "nesbot/carbon": "^2.65"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.13",
+        "phpstan/phpstan": "^1.9"
     },
     "autoload": {
         "psr-4": {
@@ -20,5 +28,9 @@
             "email": "h.ghorashi@gmail.com"
         }
     ],
+    "scripts": {
+        "phpcs-fix": "php-cs-fixer fix ",
+        "phpstan": "phpstan analyse --memory-limit=-1 src/"
+    },
     "minimum-stability": "stable"
 }
