@@ -2,12 +2,12 @@
 
 namespace Jetcod\LaravelRepository\Eloquent;
 
-use Jetcod\LaravelRepository\Exceptions\RepositoryException;
 use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Jetcod\LaravelRepository\Exceptions\RepositoryException;
 
 abstract class BaseRepository implements EloquentRepositoryInterface
 {
