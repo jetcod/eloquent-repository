@@ -178,28 +178,40 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * Update an entity.
+     * Update a model by given data.
+     *
+     * @param Model $model    Model to be updated
+     * @param array $data     Associative array of data
+     * @param array $fillable Fillable columns
+     *
+     * @return null|Model Returns null if it fails to update the data.
+     *                    Otherwise, updated model is returned
      */
-    public function update(Model $model, array $data, array $fillable = []): Model
+    public function update(Model $model, array $data, array $fillable = []): ?Model
     {
-        if (!($model instanceof Model)) {
+        if (!$model instanceof Model) {
             $model = $this->find($model);
         }
 
         $data['updated_at'] = new Carbon('now');
 
-        $model = $this->fill($data, $model, $fillable);
-        $model->save();
+        $model = $this->fill($model, $data, $fillable);
 
-        return $model;
+        return $model->save() ? $model : null;
     }
 
     /**
-     * This method will fill the given $model by the given $array.
-     * If the $fillable parameter is not available it will use the fillable
-     * array of the class.
+     * This method will fill the given model by the given array of data.
+     * It will use the fillable values of the model class if the $fillable
+     * parameter is not available.
+     *
+     * @param Model $model    The model entity
+     * @param array $data     Array of data
+     * @param array $fillable Fillable columns
+     *
+     * @return Model The model entity
      */
-    public function fill(array $data, Model $model, array $fillable = []): Model
+    public function fill(Model $model, array $data, array $fillable = []): Model
     {
         if (empty($fillable)) {
             $fillable = $this->model->getFillable();

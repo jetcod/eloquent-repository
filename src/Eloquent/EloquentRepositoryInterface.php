@@ -18,7 +18,7 @@ interface EloquentRepositoryInterface
 
     public function destroy($ids): int;
 
-    public function update(Model $model, array $data, array $fillable = []): Model;
+    public function update(Model $model, array $data, array $fillable = []): ?Model;
 
     public function updateOrCreate(array $data, array $conditions);
 
