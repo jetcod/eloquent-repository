@@ -31,7 +31,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->model     = $this->makeModel();
+        $this->model     = $this->loadModel();
     }
 
     /**
@@ -48,24 +48,8 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * Make model.
-     *
-     * @throws RepositoryException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return mixed
+     * Save a new model and return the instance.
      */
-    public function makeModel(): Model
-    {
-        $model = $this->container->make($this->getModelName());
-
-        if (!$model instanceof Model) {
-            throw new RepositoryException('Class {' . get_class($this->model) . '} must be an instance of Illuminate\\Database\\Eloquent\\Model', );
-        }
-
-        return $model;
-    }
-
     public function create(array $attributes): Model
     {
         return $this->model->create($attributes);
@@ -240,4 +224,23 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      * @return string Model namespace
      */
     abstract protected function getModelName();
+
+    /**
+     * Load model.
+     *
+     * @return mixed
+     *
+     * @throws RepositoryException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    protected function loadModel(): Model
+    {
+        $model = $this->container->make($this->getModelName());
+
+        if (!$model instanceof Model) {
+            throw new RepositoryException(sprintf('The class %s must be an instance of %s.', get_class($this->model, Model::class)));
+        }
+
+        return $model;
+    }
 }
