@@ -31,22 +31,16 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     protected $query;
 
     /**
-     * Illuminate container.
-     *
-     * @var Container
-     */
-    private $container;
-
-    /**
      * BaseRepository constructor.
      */
-    public function __construct(Container $container)
+    public function __construct()
     {
-        $this->container = $container;
-        $this->model     = $this->loadModel();
+        $this->model = $this->loadModel();
     }
 
     /**
+     * The base query builder instance.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws RepositoryException
      */
@@ -269,11 +263,11 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      * @return mixed
      *
      * @throws RepositoryException
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function loadModel(): Model
     {
-        $model = $this->container->make($this->getModelName());
+        $container = Container::getInstance();
+        $model     = $container->make($this->getModelName());
 
         if (!$model instanceof Model) {
             throw new RepositoryException(sprintf('The class %s must be an instance of %s.', get_class($this->model, Model::class)));
