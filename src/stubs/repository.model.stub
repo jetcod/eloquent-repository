@@ -2,12 +2,13 @@
 
 namespace DummyNamespace;
 
+use DummyFullModelClass;
 use Jetcod\LaravelRepository\Eloquent\BaseRepository;
 
 class DummyClass extends BaseRepository
 {
     protected function getModelName()
     {
-        // return ModelClass::class;
+        return DummyModelClass::class;
     }
 }
