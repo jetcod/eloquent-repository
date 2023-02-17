@@ -49,6 +49,5 @@
         "phpcs-fix": "php-cs-fixer fix ",
         "phpstan": "phpstan analyse --memory-limit=-1 src/",
         "test": "./vendor/bin/phpunit --testdox "
-    },
-    "minimum-stability": "stable"
+    }
 }
