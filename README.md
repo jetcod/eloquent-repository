@@ -1,6 +1,8 @@
 ## Eloquent Repository Library
 
-
+[![Latest Stable Version](http://poser.pugx.org/jetcod/eloquent-repository/v?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![Total Downloads](http://poser.pugx.org/jetcod/eloquent-repository/downloads?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![License](http://poser.pugx.org/jetcod/eloquent-repository/license?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
 ### Requirements
 * PHP ^7.3 or higher
 * Laravel 5.6 or higher
