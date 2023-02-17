@@ -14,7 +14,7 @@ interface EloquentRepositoryInterface
 
     public function create(array $attributes): Model;
 
-    public function delete(Model $model): bool;
+    public function delete(Model $model);
 
     public function destroy($ids): int;
 

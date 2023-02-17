@@ -3,7 +3,6 @@
 namespace Jetcod\LaravelRepository\Eloquent;
 
 use Carbon\Carbon;
-use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -107,13 +106,11 @@ abstract class BaseRepository implements EloquentRepositoryInterface
 
     /**
      * Find a model with its relations.
-     *
-     * @return null|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|static|static[]
      */
     public function findWithRelations(int $id, array $relations): ?Model
     {
         return $this
-            ->model
+            ->query()
             ->with($relations)
             ->find($id)
         ;
@@ -132,7 +129,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function findBy(array $conditions, array $relations = [], bool $paginate = true, int $pageSize = 10)
     {
         $query = $this
-            ->model
+            ->query()
             ->with($relations)
             ->where($conditions)
         ;
@@ -149,7 +146,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function findOneBy(array $conditions, array $relations = []): ?Model
     {
         return $this
-            ->model
+            ->query()
             ->with($relations)
             ->where($conditions)
             ->first()
@@ -163,10 +160,10 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      *
      * @throws RepositoryException Exception if no associated model found
      */
-    public function delete($model): bool
+    public function delete($model)
     {
         if (is_numeric($model)) {
-            $model = $this->find($model)->first();
+            $model = $this->find($model);
             if (!$model instanceof Model) {
                 throw new RepositoryException('Model not found!');
             }
@@ -199,10 +196,6 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     public function update(Model $model, array $data, array $fillable = []): ?Model
     {
-        if (!$model instanceof Model) {
-            $model = $this->find($model);
-        }
-
         $data['updated_at'] = new Carbon('now');
 
         $model = $this->fill($model, $data, $fillable);
@@ -224,7 +217,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function fill(Model $model, array $data, array $fillable = []): Model
     {
         if (empty($fillable)) {
-            $fillable = $this->model->getFillable();
+            $fillable = $model->getFillable();
         }
 
         if (!empty($fillable)) {
@@ -266,11 +259,16 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     protected function loadModel(): Model
     {
-        $container = Container::getInstance();
-        $model     = $container->make($this->getModelName());
+        $model = $this->getModelName();
+
+        if (!class_exists($model)) {
+            throw new RepositoryException(sprintf('The class %s does not exist.', $model));
+        }
+
+        $model = new $model();
 
         if (!$model instanceof Model) {
-            throw new RepositoryException(sprintf('The class %s must be an instance of %s.', get_class($this->model, Model::class)));
+            throw new RepositoryException(sprintf('The class %s must be an instance of %s.', get_class($model), Model::class));
         }
 
         return $model;
