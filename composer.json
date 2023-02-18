@@ -3,7 +3,7 @@
     "description": "This package is an implementation of repository pattern in laravel.",
     "type": "library",
     "license": "MIT",
-    "version": "v1.3.0",
+    "version": "1.3.0",
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true

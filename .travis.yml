@@ -11,5 +11,5 @@ install:
   - composer install
 
 script:
-  - phpstan
+  - composer phpstan
   - composer test
