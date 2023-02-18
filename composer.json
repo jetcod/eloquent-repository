@@ -3,6 +3,7 @@
     "description": "This package is an implementation of repository pattern in laravel.",
     "type": "library",
     "license": "MIT",
+    "keywords": ["eloquent", "repository", "laravel", "database", "model", "persistence"],
     "config": {
         "optimize-autoloader": true,
         "sort-packages": true
