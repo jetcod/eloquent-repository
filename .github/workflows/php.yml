@@ -14,6 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        laravel-version: [ "9.*", "8.*", "7.*", "6.*" ] # Add more versions as needed
+
     steps:
     - uses: actions/checkout@v3
 
