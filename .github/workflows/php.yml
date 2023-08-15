@@ -16,7 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        laravel-version: [ "9.*", "8.*", "7.*", "6.*" ] # Add more versions as needed
+        php-version: [ 8.2, 8.1, 8.0, 7.4 ]
+        laravel-version: [ "10.*", "9.*", "8.*", "7.*", "6.*" ]
 
     steps:
     - uses: actions/checkout@v3

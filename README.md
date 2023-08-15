@@ -6,9 +6,9 @@
 [![Total Downloads](http://poser.pugx.org/jetcod/eloquent-repository/downloads?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
 [![License](http://poser.pugx.org/jetcod/eloquent-repository/license?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
 ### Requirements
-* PHP ^7.3 or higher
-* Laravel 5.6 or higher
-* Eloquent 5.6 or higher
+* PHP ^7.4 or higher
+* Laravel 6.0 or higher
+* Eloquent 6.0 or higher
 
 ### Installation
 You can install the library using Composer:

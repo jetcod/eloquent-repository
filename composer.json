@@ -9,7 +9,7 @@
         "sort-packages": true
     },
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.0",
         "illuminate/console": "^8.83|^9.0",
         "illuminate/contracts": "^8.83|^9.0",
         "illuminate/database": "^8.83|^9.0",
