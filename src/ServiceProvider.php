@@ -3,8 +3,7 @@
 namespace Jetcod\LaravelRepository;
 
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
-
-// use Jetcod\LaravelRepository\Console\RepositoryMakeCommand;
+use Jetcod\LaravelRepository\Console\RepositoryMakeCommand;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -13,17 +12,15 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     public function boot()
     {
-        // if ($this->app->runningInConsole()) {
-        //     $this->commands([
-        //         RepositoryMakeCommand::class,
-        //     ]);
-        // }
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                RepositoryMakeCommand::class,
+            ]);
+        }
     }
 
     /**
      * Register the application services.
      */
-    public function register()
-    {
-    }
+    public function register() {}
 }
