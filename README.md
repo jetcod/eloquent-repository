@@ -7,7 +7,7 @@
 [![License](http://poser.pugx.org/jetcod/eloquent-repository/license)](https://packagist.org/packages/jetcod/eloquent-repository)
 ### Requirements
 * PHP ^8.0 or higher
-* Laravel 8.0 or higher
+* Laravel 9.0 or higher
 * Eloquent 8.0 or higher
 
 ### Installation
