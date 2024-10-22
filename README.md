@@ -2,9 +2,10 @@
 
 [![Actions Status](https://github.com/jetcod/eloquent-repository/actions/workflows/php.yml/badge.svg?style=for-the-badge&label=%3Cb%3EBuild%3C/b%3E)](https://github.com/jetcod/eloquent-repository/actions)
 
-[![Latest Stable Version](http://poser.pugx.org/jetcod/eloquent-repository/v)](https://packagist.org/packages/jetcod/eloquent-repository)
-[![Total Downloads](http://poser.pugx.org/jetcod/eloquent-repository/downloads)](https://packagist.org/packages/jetcod/eloquent-repository)
-[![License](http://poser.pugx.org/jetcod/eloquent-repository/license)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![Latest Stable Version](https://img.shields.io/packagist/v/jetcod/eloquent-repository)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![Total Downloads](https://img.shields.io/packagist/dt/jetcod/eloquent-repository)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![License](https://img.shields.io/github/license/jetcod/eloquent-repository)](https://github.com/jetcod/eloquent-repository/blob/main/LICENSE)
+
 ### Requirements
 * PHP ^8.0 or higher
 * Laravel 9.0 or higher
