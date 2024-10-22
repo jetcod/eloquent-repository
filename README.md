@@ -2,13 +2,13 @@
 
 [![Actions Status](https://github.com/jetcod/eloquent-repository/actions/workflows/php.yml/badge.svg?style=for-the-badge&label=%3Cb%3EBuild%3C/b%3E)](https://github.com/jetcod/eloquent-repository/actions)
 
-[![Latest Stable Version](http://poser.pugx.org/jetcod/eloquent-repository/v?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
-[![Total Downloads](http://poser.pugx.org/jetcod/eloquent-repository/downloads?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
-[![License](http://poser.pugx.org/jetcod/eloquent-repository/license?style=for-the-badge)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![Latest Stable Version](http://poser.pugx.org/jetcod/eloquent-repository/v)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![Total Downloads](http://poser.pugx.org/jetcod/eloquent-repository/downloads)](https://packagist.org/packages/jetcod/eloquent-repository)
+[![License](http://poser.pugx.org/jetcod/eloquent-repository/license)](https://packagist.org/packages/jetcod/eloquent-repository)
 ### Requirements
 * PHP ^8.0 or higher
-* Laravel 9.0 or higher
-* Eloquent 9.0 or higher
+* Laravel 8.0 or higher
+* Eloquent 8.0 or higher
 
 ### Installation
 You can install the library using Composer:
