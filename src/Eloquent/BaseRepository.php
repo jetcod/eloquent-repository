@@ -3,6 +3,7 @@
 namespace Jetcod\LaravelRepository\Eloquent;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -40,7 +41,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     /**
      * The base query builder instance.
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      * @throws RepositoryException
      */
     public function query(): Builder
@@ -265,7 +266,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
             throw new RepositoryException(sprintf('The class %s does not exist.', $model));
         }
 
-        $model = new $model();
+        $model = app()->make($model);
 
         if (!$model instanceof Model) {
             throw new RepositoryException(sprintf('The class %s must be an instance of %s.', get_class($model), Model::class));
