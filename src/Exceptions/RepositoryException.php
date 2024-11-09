@@ -2,6 +2,4 @@
 
 namespace Jetcod\LaravelRepository\Exceptions;
 
-class RepositoryException extends \Exception
-{
-}
+class RepositoryException extends \Exception {}
