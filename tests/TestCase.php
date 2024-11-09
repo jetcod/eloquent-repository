@@ -2,18 +2,22 @@
 
 namespace Jetcod\LaravelRepository\Test;
 
-use Jetcod\LaravelRepository\Test\Stubs\TestModel;
-use Jetcod\LaravelRepository\Test\Stubs\TestRepository;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Jetcod\LaravelRepository\Eloquent\EloquentRepositoryInterface;
+use Jetcod\LaravelRepository\Test\Fixtures\Models\User;
 use Mockery as m;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Orchestra\Testbench\TestCase as TestBench;
 
 /**
  * @internal
  *
  * @coversNothing
  */
-class TestCase extends PHPUnitTestCase
+class TestCase extends TestBench
 {
+    use RefreshDatabase;
+
     public static $functions;
 
     public $builderMock;
@@ -24,8 +28,19 @@ class TestCase extends PHPUnitTestCase
         'name'  => 'Bill',
     ];
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Factory::guessFactoryNamesUsing(function (string $modelName) {
+            return 'Jetcod\LaravelRepository\Test\Fixtures\Factories\\' . class_basename($modelName) . 'Factory';
+        });
+    }
+
     public function tearDown(): void
     {
+        parent::tearDown();
+
         m::close();
     }
 
@@ -34,13 +49,20 @@ class TestCase extends PHPUnitTestCase
         return m::mock($className);
     }
 
-    protected function makeRepository(): TestRepository
+    protected function defineDatabaseMigrations()
     {
-        return new TestRepository();
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
     }
 
-    protected function makeModel(array $data = []): TestModel
+    protected function makeRepository($model): EloquentRepositoryInterface
     {
-        return new TestModel($data);
+        $repositoryClass = sprintf('Jetcod\LaravelRepository\Test\Fixtures\Repositories\%sRepository', class_basename($model));
+
+        return $this->app->make($repositoryClass);
+    }
+
+    protected function makeModel(array $data = []): User
+    {
+        return new User($data);
     }
 }
