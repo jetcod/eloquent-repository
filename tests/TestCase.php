@@ -3,31 +3,14 @@
 namespace Jetcod\LaravelRepository\Test;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Jetcod\LaravelRepository\Eloquent\EloquentRepositoryInterface;
+use Jetcod\LaravelRepository\ServiceProvider;
 use Jetcod\LaravelRepository\Test\Fixtures\Models\User;
 use Mockery as m;
 use Orchestra\Testbench\TestCase as TestBench;
 
-/**
- * @internal
- *
- * @coversNothing
- */
 class TestCase extends TestBench
 {
-    use RefreshDatabase;
-
-    public static $functions;
-
-    public $builderMock;
-
-    protected $sampleData = [
-        'id'    => 123,
-        'email' => 'something@example.com',
-        'name'  => 'Bill',
-    ];
-
     public function setUp(): void
     {
         parent::setUp();
@@ -44,14 +27,19 @@ class TestCase extends TestBench
         m::close();
     }
 
-    public function makeMock($className)
+    protected function getPackageProviders($app)
     {
-        return m::mock($className);
+        return [ ServiceProvider::class ];
     }
 
     protected function defineDatabaseMigrations()
     {
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+    }
+    
+    protected function makeMock($className)
+    {
+        return m::mock($className);
     }
 
     protected function makeRepository($model): EloquentRepositoryInterface

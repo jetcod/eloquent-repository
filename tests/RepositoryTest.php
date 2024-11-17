@@ -6,17 +6,17 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection as DbColection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Jetcod\LaravelRepository\Eloquent\BaseRepository;
 use Jetcod\LaravelRepository\Exceptions\RepositoryException;
 use Jetcod\LaravelRepository\Test\Fixtures\Models\InvalidModel;
-use Jetcod\LaravelRepository\Test\Fixtures\Models\Post;
 use Jetcod\LaravelRepository\Test\Fixtures\Models\User;
 use Jetcod\LaravelRepository\Test\Fixtures\Repositories\UserRepository;
-use Mockery as m;
 
 class RepositoryTest extends TestCase
 {
+    use RefreshDatabase;
     use WithFaker;
 
     public function testNonExistantModelThrowsException()
@@ -124,7 +124,7 @@ class RepositoryTest extends TestCase
     {
         $userRepository = $this->makeRepository(User::class);
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; ++$i) {
             $data[] = [
                 'first_name' => $this->faker->firstName,
                 'last_name'  => $this->faker->lastName,
@@ -132,12 +132,12 @@ class RepositoryTest extends TestCase
                 'password'   => $this->faker->password,
             ];
         }
-        
+
         $result = $userRepository->insert($data);
 
         $this->assertTrue($result);
         $this->assertDatabaseCount('users', 5);
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; ++$i) {
             $this->assertDatabaseHas('users', $data[$i]);
         }
     }
@@ -225,13 +225,13 @@ class RepositoryTest extends TestCase
     public function testUpdateModelWithFillableColumnsOverridesFillableAttributes()
     {
         $userRepository = $this->makeRepository(User::class);
-        $model = User::factory()->create(['email' => 'test@example.com']);
+        $model          = User::factory()->create(['email' => 'test@example.com']);
 
         $updatedModel = $userRepository->update($model, ['email' => 'test@example.net'], ['first_name']);
 
         $this->assertInstanceOf(Model::class, $updatedModel);
         $this->assertEquals($model->email, $updatedModel->email);
-        $this->assertDatabaseHas('users', ['email' => $model->email]);        
+        $this->assertDatabaseHas('users', ['email' => $model->email]);
     }
 
     public function testUpdateModelWillReturnNullIfItIsFailedToSave()
@@ -240,7 +240,7 @@ class RepositoryTest extends TestCase
 
         $mockedModel = $this->makeMock(Model::class);
         $mockedModel->makePartial()->shouldReceive('save')->andReturn(false);
-        
+
         $userRepository = $this->makeRepository(User::class);
 
         $updatedModel = $userRepository->update($mockedModel, ['email' => 'test@example.net']);
@@ -291,7 +291,7 @@ class RepositoryTest extends TestCase
 
         $userRepository->destroy($userIds);
 
-        $expectedModels->each(function($model) {
+        $expectedModels->each(function ($model) {
             $this->assertDatabaseMissing('users', ['id' => $model->id]);
         });
         $this->assertDatabaseCount('users', 5);
@@ -302,11 +302,11 @@ class RepositoryTest extends TestCase
         $userRepository       = $this->makeRepository(User::class);
         $userModelsCollection = User::factory()->count(10)->create();
 
-        $expectedModels       = $userModelsCollection->random(5);
+        $expectedModels = $userModelsCollection->random(5);
 
         $userRepository->destroy($expectedModels);
 
-        $expectedModels->each(function($model) {
+        $expectedModels->each(function ($model) {
             $this->assertDatabaseMissing('users', ['id' => $model->id]);
         });
         $this->assertDatabaseCount('users', 5);
@@ -399,7 +399,7 @@ class RepositoryTest extends TestCase
 
         $this->assertInstanceOf(DbColection::class, $models);
         $this->assertCount(10, $models);
-        $models->each(function($model) {
+        $models->each(function ($model) {
             $this->assertArrayHasKey('posts', $model->toArray());
         });
     }
