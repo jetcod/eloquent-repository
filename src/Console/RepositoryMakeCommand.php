@@ -82,7 +82,7 @@ class RepositoryMakeCommand extends GeneratorCommand
         $modelClass = $this->parseModel($this->option('model'));
 
         if (!class_exists($modelClass)) {
-            if ($this->confirm("A {$modelClass} model does not exist. Do you want to generate it?", true)) {
+            if ($this->confirm("The {$modelClass} model does not exist. Do you want to generate it?", true)) {
                 $this->call('make:model', ['name' => $modelClass]);
             }
         }
@@ -111,7 +111,7 @@ class RepositoryMakeCommand extends GeneratorCommand
         $model = trim(str_replace('/', '\\', $model), '\\');
 
         if (!Str::startsWith($model, $rootNamespace = $this->laravel->getNamespace())) {
-            $model = Str::replaceFirst('\\\\', '\\', sprintf('%s\Models\%s', $rootNamespace, $model));
+            $model = Str::replaceFirst('\\\\', '\\', sprintf('%s\%s', $rootNamespace, $model));
         }
 
         return $model;
