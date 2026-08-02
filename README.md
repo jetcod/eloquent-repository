@@ -7,9 +7,8 @@
 [![License](https://img.shields.io/github/license/jetcod/eloquent-repository)](https://github.com/jetcod/eloquent-repository/blob/main/LICENSE)
 
 ### Requirements
-* PHP ^8.0 or higher
-* Laravel 9.0 or higher
-* Eloquent 8.0 or higher
+* PHP ^8.1
+* Laravel 12.0 or higher
 
 ### Installation
 You can install the library using Composer:
