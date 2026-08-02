@@ -15,8 +15,28 @@ jobs:
 
     strategy:
       matrix:
-        php-version: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
-        laravel-version: [ '12.*', '13.*' ]
+        include:
+          - php-version: '8.2'
+            laravel-version: '12.*'
+            testbench-version: '10.*'
+          - php-version: '8.3'
+            laravel-version: '12.*'
+            testbench-version: '10.*'
+          - php-version: '8.4'
+            laravel-version: '12.*'
+            testbench-version: '10.*'
+          - php-version: '8.5'
+            laravel-version: '12.*'
+            testbench-version: '10.*'
+          - php-version: '8.3'
+            laravel-version: '13.*'
+            testbench-version: '11.*'
+          - php-version: '8.4'
+            laravel-version: '13.*'
+            testbench-version: '11.*'
+          - php-version: '8.5'
+            laravel-version: '13.*'
+            testbench-version: '11.*'
 
     steps:
       - name: Checkout
@@ -42,8 +62,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-php-${{ matrix.php-version }}-laravel-${{ matrix.laravel-version }}-
 
-      - name: Require targeted Laravel version
-        run: composer require --no-update "illuminate/support:${{ matrix.laravel-version }}"
+      - name: Require targeted Laravel and Testbench versions
+        run: |
+          composer require --no-update "illuminate/support:${{ matrix.laravel-version }}"
+          composer require --dev --no-update "orchestra/testbench:${{ matrix.testbench-version }}"
 
       - name: Install dependencies (update lock)
         run: composer update --with-all-dependencies --no-interaction --prefer-dist --no-progress
